@@ -1,0 +1,81 @@
+server:
+  port: 8088
+spring:
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://127.0.0.1:3306/shop?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    hikari:
+      pool-name: DateHikariCP
+      minimum-idle: 5
+      idle-timeout: 180000
+      maximum-pool-size: 10
+      auto-commit: true
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+  freemarker:
+    cache: false
+    charset: utf-8
+    content-type: text/html;charset=UTF-8
+    enabled: true
+    suffix: .ftl
+    template-loader-path: classpath:/views/
+    #配置模板中是否可以取request
+    request-context-attribute: request
+    expose-request-attributes: true
+    expose-spring-macro-helpers: true
+    expose-session-attributes: true
+    settings:
+      tag_syntax: auto_detect
+      template_update_delay: 0
+      default_encoding: UTF-8
+      output_encoding: UTF-8
+      locale: zh_CN
+      date_format: yyyy-MM-dd
+      time_format: HH:mm:ss
+      datetime_format: yyyy-MM-dd HH:mm:ss
+      number_format: #.##
+      boolean_format: true,false
+      template_exception_handler: html_debug
+  rabbitmq:
+    username: yeb
+    password: admin123
+    host: 47.108.198.18
+    port: 5672
+    listener:
+      simple:
+        acknowledge-mode: manual
+    publisher-confirm-type: correlated
+    publisher-returns: true
+  redis:
+    timeout: 10000ms
+    host: 127.0.0.1
+    port: 6379
+    database: 1 # 选择哪个库，默认0库
+    lettuce:
+      pool:
+        max-active: 1024 # 最大连接数，默认 8
+        max-wait: 10000ms # 最大连接阻塞等待时间，单位毫秒，默认 -1
+        max-idle: 200 # 最大空闲连接，默认 8
+        min-idle: 5
+
+#  security:
+#    user:
+#      name: admin
+#      password: 123456
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/*Mapper.xml
+  type-aliases-package: com.xxx.manager.pojo
+  configuration:
+    map-underscore-to-camel-case: false
+
+logging:
+  level:
+    com.xxx.manager.mapper: debug
+
+mybatis:
+  type-aliases-package: com.xxx.manager.pojo
+  mapper-locations: classpath*:/mapper/*Mapper.xml
